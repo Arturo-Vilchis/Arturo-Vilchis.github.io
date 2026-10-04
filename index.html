@@ -1,0 +1,1951 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>COPACI | Participación Ciudadana</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f1eb;
+    color: #35262b;
+}
+
+.sistema {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* =========================
+   MENÚ
+========================= */
+
+.menu {
+    width: 250px;
+    background: #571d29;
+    color: white;
+    padding: 25px 15px;
+    position: fixed;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    box-shadow: 4px 0 15px rgba(0,0,0,.15);
+    z-index: 100;
+    overflow-y: auto;
+}
+
+.logo {
+    text-align: center;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #a77b68;
+    margin-bottom: 20px;
+}
+
+.logo h1 {
+    font-family: Georgia, serif;
+    color: #e7d2b3;
+    letter-spacing: 4px;
+    font-size: 32px;
+}
+
+.logo p {
+    color: #f4e9dc;
+    font-size: 12px;
+    margin-top: 6px;
+}
+
+.menu button {
+    width: 100%;
+    display: block;
+    background: transparent;
+    color: #f5e9d8;
+    border: none;
+    padding: 13px 15px;
+    margin: 5px 0;
+    text-align: left;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: .3s;
+}
+
+.menu button:hover,
+.menu button.activo {
+    background: #ead8bd;
+    color: #571d29;
+    padding-left: 22px;
+}
+
+.cerrar {
+    margin-top: 25px !important;
+    border: 1px solid #d8bca5 !important;
+    text-align: center !important;
+}
+
+/* =========================
+   CONTENIDO
+========================= */
+
+.contenido {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+    min-height: 100vh;
+}
+
+.barra {
+    height: 75px;
+    background: white;
+    border-bottom: 1px solid #ddd1c4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 35px;
+}
+
+.barra h2 {
+    color: #571d29;
+    font-size: 21px;
+}
+
+.usuario {
+    background: #f0e5d6;
+    padding: 9px 15px;
+    border-radius: 20px;
+    color: #571d29;
+    font-size: 14px;
+}
+
+/* =========================
+   PANTALLAS
+========================= */
+
+.pantalla {
+    display: none;
+    padding: 35px;
+    animation: aparecer .25s ease;
+}
+
+.pantalla.activa {
+    display: block;
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.titulo {
+    margin-bottom: 30px;
+}
+
+.titulo h1 {
+    color: #571d29;
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+.titulo p {
+    color: #756a65;
+}
+
+/* =========================
+   LOGIN
+========================= */
+
+.login-area {
+    min-height: calc(100vh - 145px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login {
+    background: white;
+    width: 430px;
+    padding: 40px;
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(0,0,0,.10);
+    border-top: 6px solid #571d29;
+}
+
+.login h1 {
+    text-align: center;
+    color: #571d29;
+    margin-bottom: 8px;
+}
+
+.subtitulo {
+    text-align: center;
+    color: #777;
+    margin-bottom: 25px;
+}
+
+.campo {
+    margin-bottom: 18px;
+}
+
+.campo label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: bold;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #cfc4ba;
+    border-radius: 8px;
+    outline: none;
+    font-family: inherit;
+}
+
+.campo textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+    border-color: #8a4d5a;
+}
+
+.entrar,
+.boton-principal {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 8px;
+    background: #571d29;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.entrar:hover,
+.boton-principal:hover {
+    background: #7b3443;
+}
+
+.limpiar {
+    width: 100%;
+    padding: 11px;
+    margin-top: 9px;
+    border: 1px solid #b99a7b;
+    border-radius: 8px;
+    background: #f7eee2;
+    color: #571d29;
+    cursor: pointer;
+}
+
+/* =========================
+   TARJETAS
+========================= */
+
+.tarjetas {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.tarjeta {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid #ded4ca;
+    box-shadow: 0 5px 15px rgba(0,0,0,.06);
+    transition: .3s;
+}
+
+.tarjeta:hover {
+    transform: translateY(-4px);
+}
+
+.icono {
+    width: 48px;
+    height: 48px;
+    background: #f0dfc8;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 23px;
+    margin-bottom: 15px;
+}
+
+.tarjeta h3 {
+    color: #571d29;
+    margin-bottom: 10px;
+}
+
+.tarjeta p {
+    color: #706762;
+    line-height: 1.5;
+    font-size: 14px;
+    margin-bottom: 18px;
+}
+
+.tarjeta button {
+    background: #571d29;
+    color: white;
+    border: none;
+    padding: 9px 13px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 3px;
+}
+
+.tarjeta button:hover {
+    background: #b18a68;
+}
+
+/* =========================
+   ESTADÍSTICAS
+========================= */
+
+.estadisticas {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.estadistica {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    border-left: 5px solid #571d29;
+}
+
+.estadistica span {
+    display: block;
+    color: #777;
+    font-size: 13px;
+}
+
+.estadistica strong {
+    display: block;
+    font-size: 27px;
+    color: #571d29;
+    margin-top: 7px;
+}
+
+/* =========================
+   TABLA
+========================= */
+
+.tabla {
+    background: white;
+    padding: 25px;
+    border-radius: 14px;
+    margin-top: 25px;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background: #571d29;
+    color: white;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.estado {
+    padding: 5px 9px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.estado.activo {
+    background: #d9efd9;
+    color: #286528;
+}
+
+.estado.pendiente {
+    background: #fff0c9;
+    color: #8a6410;
+}
+
+.estado.resuelto {
+    background: #dbe8f7;
+    color: #28527a;
+}
+
+/* =========================
+   FORMULARIO
+========================= */
+
+.formulario {
+    max-width: 700px;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,.06);
+}
+
+/* =========================
+   ALERTA
+========================= */
+
+.alerta {
+    position: fixed;
+    top: 90px;
+    right: 25px;
+    background: #571d29;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.2);
+    display: none;
+    z-index: 999;
+}
+
+.alerta.mostrar {
+    display: block;
+    animation: alerta .3s ease;
+}
+
+@keyframes alerta {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    margin-left: 250px;
+    background: #ead8bd;
+    color: #571d29;
+    text-align: center;
+    padding: 18px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width: 900px) {
+
+    .menu {
+        width: 190px;
+    }
+
+    .contenido {
+        margin-left: 190px;
+        width: calc(100% - 190px);
+    }
+
+    footer {
+        margin-left: 190px;
+    }
+
+    .tarjetas {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .estadisticas {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 600px) {
+
+    .sistema {
+        display: block;
+    }
+
+    .menu {
+        position: relative;
+        width: 100%;
+        height: auto;
+    }
+
+    .contenido {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    footer {
+        margin-left: 0;
+    }
+
+    .tarjetas,
+    .estadisticas {
+        grid-template-columns: 1fr;
+    }
+
+    .pantalla {
+        padding: 20px;
+    }
+
+    .barra {
+        padding: 0 15px;
+    }
+
+    .login {
+        width: 100%;
+        padding: 25px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="sistema">
+
+<!-- =========================
+     MENÚ
+========================= -->
+
+<aside class="menu">
+
+    <div class="logo">
+        <h1>COPACI</h1>
+        <p>Consejo de Participación Ciudadana</p>
+    </div>
+
+    <button onclick="mostrar('inicio')" data-pantalla="inicio">
+        🏠 Inicio
+    </button>
+
+    <button onclick="mostrar('administrador')" data-pantalla="administrador">
+        👤 Administrador
+    </button>
+
+    <button onclick="mostrar('copaci')" data-pantalla="copaci">
+        🏛️ COPACI
+    </button>
+
+    <button onclick="mostrar('ciudadano')" data-pantalla="ciudadano">
+        👥 Ciudadano
+    </button>
+
+    <button onclick="mostrar('avisos')" data-pantalla="avisos">
+        📢 Avisos
+    </button>
+
+    <button onclick="mostrar('informes')" data-pantalla="informes">
+        📊 Informes
+    </button>
+
+    <button onclick="mostrar('documentos')" data-pantalla="documentos">
+        📄 Documentos
+    </button>
+
+    <button onclick="mostrar('reportes')" data-pantalla="reportes">
+        📋 Reportes
+    </button>
+
+    <button class="cerrar" onclick="cerrarSesion()">
+        🔒 Cerrar sesión
+    </button>
+
+</aside>
+
+
+<!-- =========================
+     CONTENIDO
+========================= -->
+
+<main class="contenido">
+
+<div class="barra">
+
+    <h2 id="nombrePanel">Inicio</h2>
+
+    <div class="usuario" id="usuarioActual">
+        No has iniciado sesión
+    </div>
+
+</div>
+
+
+<!-- =========================
+     INICIO / LOGIN
+========================= -->
+
+<section id="inicio" class="pantalla activa">
+
+    <div class="login-area">
+
+        <div class="login">
+
+            <h1>Bienvenido</h1>
+
+            <p class="subtitulo">
+                Acceso al sistema COPACI
+            </p>
+
+            <div class="campo">
+
+                <label for="rol">
+                    Selecciona tu rol
+                </label>
+
+                <select id="rol">
+
+                    <option value="">
+                        Selecciona una opción
+                    </option>
+
+                    <option value="Administrador">
+                        Administrador
+                    </option>
+
+                    <option value="COPACI">
+                        COPACI
+                    </option>
+
+                    <option value="Ciudadano">
+                        Ciudadano
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="campo">
+
+                <label for="password">
+                    Contraseña
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Escribe tu contraseña"
+                    onkeydown="teclaEnter(event)"
+                >
+
+            </div>
+
+            <button class="entrar" onclick="iniciarSesion()">
+                Iniciar sesión
+            </button>
+
+            <button class="limpiar" onclick="limpiar()">
+                Limpiar
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     ADMINISTRADOR
+========================= -->
+
+<section id="administrador" class="pantalla">
+
+    <div class="titulo">
+
+        <h1>Panel de Administrador</h1>
+
+        <p>
+            Administración general del sistema COPACI.
+        </p>
+
+    </div>
+
+    <div class="estadisticas">
+
+        <div class="estadistica">
+            <span>Usuarios</span>
+            <strong>25</strong>
+        </div>
+
+        <div class="estadistica">
+            <span>Opiniones</span>
+            <strong>18</strong>
+        </div>
+
+        <div class="estadistica">
+            <span>Eventos</span>
+            <strong>8</strong>
+        </div>
+
+        <div class="estadistica">
+            <span>Reportes</span>
+            <strong>12</strong>
+        </div>
+
+    </div>
+
+    <div class="tarjetas">
+
+        <div class="tarjeta">
+
+            <div class="icono">👤</div>
+
+            <h3>Usuarios</h3>
+
+            <p>
+                Registra, actualiza, elimina y consulta usuarios.
+            </p>
+
+            <button onclick="mensaje('Registrar usuario')">
+                Registrar
+            </button>
+
+            <button onclick="mensaje('Consultando usuarios')">
+                Consultar
+            </button>
+
+        </div>
+
+        <div class="tarjeta">
+
+            <div class="icono">💬</div>
+
+            <h3>Opiniones</h3>
+
+            <p>
+                Revisa las opiniones y comentarios de los ciudadanos.
+            </p>
+
+            <button onclick="mostrar('reportes')">
+                Ver opiniones
+            </button>
+
+        </div>
+
+        <div class="tarjeta">
+
+            <div class="icono">📅</div>
+
+            <h3>Eventos</h3>
+
+            <p>
+                Administra las solicitudes de eventos.
+            </p>
+
+            <button onclick="mensaje('Gestionar eventos')">
+                Gestionar
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     COPACI
+========================= -->
+
+<section id="copaci" class="pantalla">
+
+    <div class="titulo">
+
+        <h1>Panel COPACI</h1>
+
+        <p>
+            Gestión de la participación ciudadana.
+        </p>
+
+    </div>
+
+    <div class="tarjetas">
+
+        <div class="tarjeta">
+
+            <div class="icono">💬</div>
+
+            <h3>Opiniones</h3>
+
+            <p>
+                Revisa las opiniones enviadas por los ciudadanos.
+            </p>
+
+            <button onclick="mostrar('reportes')">
+                Consultar
+            </button>
+
+        </div>
+
+        <div class="tarjeta">
+
+            <div class="icono">📅</div>
+
+            <h3>Eventos</h3>
+
+            <p>
+                Revisa las solicitudes de eventos.
+            </p>
+
+            <button onclick="mensaje('Eventos consultados')">
+                Consultar
+            </button>
+
+        </div>
+
+        <div class="tarjeta">
+
+            <div class="icono">📢</div>
+
+            <h3>Avisos</h3>
+
+            <p>
+                Publica información para la comunidad.
+            </p>
+
+            <button onclick="mostrar('avisos')">
+                Ver avisos
+            </button>
+
+        </div>
+
+        <div class="tarjeta">
+
+            <div class="icono">📋</div>
+
+            <h3>Reportes</h3>
+
+            <p>
+                Consulta los reportes del sistema.
+            </p>
+
+            <button onclick="mostrar('reportes')">
+                Ver reportes
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     CIUDADANO
+========================= -->
+
+<section id="ciudadano" class="pantalla">
+
+    <div class="titulo">
+
+        <h1>Portal del Ciudadano</h1>
+
+        <p>
+            Participa y consulta información de tu comunidad.
+        </p>
+
+    </div>
+
+    <div class="tarjetas">
+
+        <div class="tarjeta">
+
+            <div class="icono">💬</div>
+
+            <h3>Mi opinión</h3>
+
+            <p>
+                Envía una opinión, comentario o sugerencia.
+            </p>
+
+            <button onclick="mostrar('opinion')">
+                Enviar
+            </button>
+
+        </div>
+
+        <div class="tarjeta">
+
+            <div class="icono">📅</div>
+
+            <h3>Eventos</h3>
+
+            <p>
+                Solicita un evento para beneficio de tu comunidad.
+            </p>
+
+            <button onclick="mostrar('evento')">
+                Solicitar
+            </button>
+
+        </div>
+
+        <div class="tarjeta">
+
+            <div class="icono">📢</div>
+
+            <h3>Avisos</h3>
+
+            <p>
+                Consulta los avisos publicados por COPACI.
+            </p>
+
+            <button onclick="mostrar('avisos')">
+                Consultar
+            </button>
+
+        </div>
+
+        <div class="tarjeta">
+
+            <div class="icono">📄</div>
+
+            <h3>Documentos</h3>
+
+            <p>
+                Consulta documentos de interés ciudadano.
+            </p>
+
+            <button onclick="mostrar('documentos')">
+                Consultar
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     AVISOS
+========================= -->
+
+<section id="avisos" class="pantalla">
+
+    <div class="titulo">
+
+        <h1>📢 Avisos</h1>
+
+        <p>
+            Información importante para la comunidad.
+        </p>
+
+    </div>
+
+    <div class="tarjetas">
+
+        <div class="tarjeta">
+
+            <div class="icono">📢</div>
+
+            <h3>Reunión comunitaria</h3>
+
+            <p>
+                Se invita a los ciudadanos a participar
+                en la próxima reunión comunitaria.
+            </p>
+
+            <button onclick="mensaje('Aviso seleccionado')">
+                Ver detalles
+            </button>
+
+        </div>
+
+        <div class="tarjeta">
+
+            <div class="icono">📅</div>
+
+            <h3>Próximo evento</h3>
+
+            <p>
+                Consulta las actividades programadas
+                para la comunidad.
+            </p>
+
+            <button onclick="mostrar('evento')">
+                Más información
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     INFORMES
+========================= -->
+
+<section id="informes" class="pantalla">
+
+    <div class="titulo">
+
+        <h1>📊 Informes</h1>
+
+        <p>
+            Consulta los resultados y estadísticas del sistema.
+        </p>
+
+    </div>
+
+    <div class="estadisticas">
+
+        <div class="estadistica">
+            <span>Participaciones</span>
+            <strong>146</strong>
+        </div>
+
+        <div class="estadistica">
+            <span>Opiniones</span>
+            <strong>82</strong>
+        </div>
+
+        <div class="estadistica">
+            <span>Eventos</span>
+            <strong>24</strong>
+        </div>
+
+        <div class="estadistica">
+            <span>Solicitudes</span>
+            <strong>39</strong>
+        </div>
+
+    </div>
+
+    <div class="tabla">
+
+        <h3 style="color:#571d29; margin-bottom:15px;">
+            Resumen de participación
+        </h3>
+
+        <table>
+
+            <tr>
+                <th>Actividad</th>
+                <th>Total</th>
+                <th>Estado</th>
+            </tr>
+
+            <tr>
+                <td>Opiniones ciudadanas</td>
+                <td>82</td>
+                <td>
+                    <span class="estado activo">
+                        Activo
+                    </span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Solicitudes de eventos</td>
+                <td>39</td>
+                <td>
+                    <span class="estado pendiente">
+                        Pendiente
+                    </span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Reportes atendidos</td>
+                <td>25</td>
+                <td>
+                    <span class="estado resuelto">
+                        Resuelto
+                    </span>
+                </td>
+            </tr>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     DOCUMENTOS
+========================= -->
+
+<section id="documentos" class="pantalla">
+
+    <div class="titulo">
+
+        <h1>📄 Documentos</h1>
+
+        <p>
+            Documentos disponibles para consulta.
+        </p>
+
+    </div>
+
+    <div class="tarjetas">
+
+        <div class="tarjeta">
+
+            <div class="icono">📜</div>
+
+            <h3>Reglamento COPACI</h3>
+
+            <p>
+                Consulta el reglamento de participación ciudadana.
+            </p>
+
+            <button onclick="mensaje('Abriendo Reglamento COPACI')">
+                Consultar
+            </button>
+
+        </div>
+
+        <div class="tarjeta">
+
+            <div class="icono">📋</div>
+
+            <h3>Actas de reunión</h3>
+
+            <p>
+                Consulta las actas de las reuniones comunitarias.
+            </p>
+
+            <button onclick="mensaje('Consultando actas')">
+                Consultar
+            </button>
+
+        </div>
+
+        <div class="tarjeta">
+
+            <div class="icono">📑</div>
+
+            <h3>Informes ciudadanos</h3>
+
+            <p>
+                Revisa los informes de participación ciudadana.
+            </p>
+
+            <button onclick="mostrar('informes')">
+                Ver informes
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     REPORTES
+========================= -->
+
+<section id="reportes" class="pantalla">
+
+    <div class="titulo">
+
+        <h1>📋 Reportes</h1>
+
+        <p>
+            Consulta los reportes y opiniones registrados.
+        </p>
+
+    </div>
+
+    <div class="tabla">
+
+        <table>
+
+            <tr>
+                <th>Ciudadano</th>
+                <th>Tipo</th>
+                <th>Descripción</th>
+                <th>Estado</th>
+            </tr>
+
+            <tr>
+                <td>Ciudadano 001</td>
+                <td>Opinión</td>
+                <td>Mejorar iluminación de la zona.</td>
+                <td>
+                    <span class="estado activo">
+                        Activo
+                    </span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Ciudadano 002</td>
+                <td>Solicitud</td>
+                <td>Solicitud de evento comunitario.</td>
+                <td>
+                    <span class="estado pendiente">
+                        Pendiente
+                    </span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Ciudadano 003</td>
+                <td>Reporte</td>
+                <td>Problema en área común.</td>
+                <td>
+                    <span class="estado resuelto">
+                        Resuelto
+                    </span>
+                </td>
+            </tr>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     OPINIÓN
+========================= -->
+
+<section id="opinion" class="pantalla">
+
+    <div class="titulo">
+
+        <h1>💬 Enviar opinión</h1>
+
+        <p>
+            Comparte tus comentarios y sugerencias.
+        </p>
+
+    </div>
+
+    <div class="formulario">
+
+        <div class="campo">
+
+            <label>Nombre</label>
+
+            <input
+                type="text"
+                id="nombreOpinion"
+                placeholder="Tu nombre"
+            >
+
+        </div>
+
+        <div class="campo">
+
+            <label>Tipo de opinión</label>
+
+            <select id="tipoOpinion">
+
+                <option value="">
+                    Selecciona una opción
+                </option>
+
+                <option>Sugerencia</option>
+                <option>Comentario</option>
+                <option>Queja</option>
+                <option>Felicitación</option>
+
+            </select>
+
+        </div>
+
+        <div class="campo">
+
+            <label>Mensaje</label>
+
+            <textarea
+                id="mensajeOpinion"
+                placeholder="Escribe tu opinión..."
+            ></textarea>
+
+        </div>
+
+        <button
+            class="boton-principal"
+            onclick="enviarOpinion()"
+        >
+            Enviar opinión
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     EVENTO
+========================= -->
+
+<section id="evento" class="pantalla">
+
+    <div class="titulo">
+
+        <h1>📅 Solicitar evento</h1>
+
+        <p>
+            Solicita un evento para beneficio de tu comunidad.
+        </p>
+
+    </div>
+
+    <div class="formulario">
+
+        <div class="campo">
+
+            <label>Nombre del evento</label>
+
+            <input
+                type="text"
+                id="nombreEvento"
+                placeholder="Ej. Jornada comunitaria"
+            >
+
+        </div>
+
+        <div class="campo">
+
+            <label>Fecha</label>
+
+            <input
+                type="date"
+                id="fechaEvento"
+            >
+
+        </div>
+
+        <div class="campo">
+
+            <label>Descripción</label>
+
+            <textarea
+                id="descripcionEvento"
+                placeholder="Describe el evento..."
+            ></textarea>
+
+        </div>
+
+        <button
+            class="boton-principal"
+            onclick="enviarEvento()"
+        >
+            Enviar solicitud
+        </button>
+
+    </div>
+
+</section>
+
+</main>
+
+</div>
+
+
+<!-- =========================
+     ALERTA
+========================= -->
+
+<div id="alerta" class="alerta"></div>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    COPACI © 2026 |
+    Sistema de Participación Ciudadana
+    Jose Arturo Vilchis De Paz
+
+</footer>
+
+
+<script>
+
+/* =====================================
+   CONFIGURACIÓN DE USUARIOS
+===================================== */
+
+const usuarios = {
+
+    "Administrador": {
+        password: "Admin2026!",
+        panel: "administrador"
+    },
+
+    "COPACI": {
+        password: "Copaci2026!",
+        panel: "copaci"
+    },
+
+    "Ciudadano": {
+        password: "Ciudadano2026!",
+        panel: "ciudadano"
+    }
+
+};
+
+
+/* =====================================
+   VARIABLE DE SESIÓN
+===================================== */
+
+let usuarioLogueado = null;
+
+
+/* =====================================
+   NOMBRES DE PANELES
+===================================== */
+
+const nombresPaneles = {
+
+    inicio: "Inicio",
+
+    administrador: "Administrador",
+
+    copaci: "COPACI",
+
+    ciudadano: "Ciudadano",
+
+    avisos: "Avisos",
+
+    informes: "Informes",
+
+    documentos: "Documentos",
+
+    reportes: "Reportes",
+
+    opinion: "Mi opinión",
+
+    evento: "Solicitud de evento"
+
+};
+
+
+/* =====================================
+   PERMISOS
+===================================== */
+
+const permisos = {
+
+    Administrador: [
+        "inicio",
+        "administrador",
+        "copaci",
+        "avisos",
+        "informes",
+        "documentos",
+        "reportes"
+    ],
+
+    COPACI: [
+        "inicio",
+        "copaci",
+        "avisos",
+        "informes",
+        "documentos",
+        "reportes"
+    ],
+
+    Ciudadano: [
+        "inicio",
+        "ciudadano",
+        "avisos",
+        "documentos",
+        "opinion",
+        "evento"
+    ]
+
+};
+
+
+/* =====================================
+   MOSTRAR PANEL
+===================================== */
+
+function mostrar(id) {
+
+    /*
+       El inicio siempre puede abrirse
+       para permitir iniciar sesión.
+    */
+
+    if (id !== "inicio") {
+
+        if (!usuarioLogueado) {
+
+            mensaje("Debes iniciar sesión primero.");
+
+            mostrar("inicio");
+
+            return;
+        }
+
+        const rol = usuarioLogueado.rol;
+
+        if (
+            !permisos[rol] ||
+            !permisos[rol].includes(id)
+        ) {
+
+            mensaje(
+                "No tienes permiso para acceder a este panel."
+            );
+
+            return;
+        }
+
+    }
+
+
+    const pantallas =
+        document.querySelectorAll(".pantalla");
+
+
+    pantallas.forEach(pantalla => {
+
+        pantalla.classList.remove("activa");
+
+    });
+
+
+    const panel =
+        document.getElementById(id);
+
+
+    if (!panel) {
+
+        mensaje("El panel solicitado no existe.");
+
+        return;
+    }
+
+
+    panel.classList.add("activa");
+
+
+    /* Cambiar título */
+
+    document.getElementById("nombrePanel").textContent =
+        nombresPaneles[id] || id;
+
+
+    /* Cambiar botón activo */
+
+    const botones =
+        document.querySelectorAll(".menu button[data-pantalla]");
+
+
+    botones.forEach(boton => {
+
+        boton.classList.remove("activo");
+
+    });
+
+
+    const botonActivo =
+        document.querySelector(
+            `.menu button[data-pantalla="${id}"]`
+        );
+
+
+    if (botonActivo) {
+
+        botonActivo.classList.add("activo");
+
+    }
+
+}
+
+
+/* =====================================
+   INICIAR SESIÓN
+===================================== */
+
+function iniciarSesion() {
+
+    const rol =
+        document.getElementById("rol").value;
+
+
+    const password =
+        document.getElementById("password").value;
+
+
+    if (!rol) {
+
+        mensaje("Selecciona un rol.");
+
+        return;
+    }
+
+
+    if (!password) {
+
+        mensaje("Escribe tu contraseña.");
+
+        return;
+    }
+
+
+    if (
+        usuarios[rol] &&
+        usuarios[rol].password === password
+    ) {
+
+        usuarioLogueado = {
+
+            rol: rol
+
+        };
+
+
+        document.getElementById(
+            "usuarioActual"
+        ).textContent =
+            "👤 " + rol;
+
+
+        mensaje(
+            "¡Bienvenido! Sesión iniciada como " + rol
+        );
+
+
+        setTimeout(() => {
+
+            mostrar(
+                usuarios[rol].panel
+            );
+
+        }, 500);
+
+
+        actualizarMenu();
+
+    } else {
+
+        mensaje(
+            "Contraseña incorrecta."
+        );
+
+    }
+
+}
+
+
+/* =====================================
+   ACTUALIZAR MENÚ SEGÚN ROL
+===================================== */
+
+function actualizarMenu() {
+
+    const botones =
+        document.querySelectorAll(
+            ".menu button[data-pantalla]"
+        );
+
+
+    botones.forEach(boton => {
+
+        const pantalla =
+            boton.dataset.pantalla;
+
+
+        if (!usuarioLogueado) {
+
+            if (pantalla === "inicio") {
+
+                boton.style.display = "block";
+
+            } else {
+
+                boton.style.display = "none";
+
+            }
+
+            return;
+        }
+
+
+        const rol =
+            usuarioLogueado.rol;
+
+
+        if (
+            permisos[rol] &&
+            permisos[rol].includes(pantalla)
+        ) {
+
+            boton.style.display = "block";
+
+        } else {
+
+            boton.style.display = "none";
+
+        }
+
+    });
+
+}
+
+
+/* =====================================
+   CERRAR SESIÓN
+===================================== */
+
+function cerrarSesion() {
+
+    if (!usuarioLogueado) {
+
+        mensaje("No hay una sesión activa.");
+
+        return;
+
+    }
+
+
+    usuarioLogueado = null;
+
+
+    document.getElementById(
+        "usuarioActual"
+    ).textContent =
+        "No has iniciado sesión";
+
+
+    limpiar();
+
+
+    actualizarMenu();
+
+
+    mostrar("inicio");
+
+
+    mensaje(
+        "Sesión cerrada correctamente."
+    );
+
+}
+
+
+/* =====================================
+   LIMPIAR LOGIN
+===================================== */
+
+function limpiar() {
+
+    document.getElementById(
+        "rol"
+    ).value = "";
+
+
+    document.getElementById(
+        "password"
+    ).value = "";
+
+}
+
+
+/* =====================================
+   ENTER PARA INICIAR SESIÓN
+===================================== */
+
+function teclaEnter(event) {
+
+    if (event.key === "Enter") {
+
+        iniciarSesion();
+
+    }
+
+}
+
+
+/* =====================================
+   MENSAJES
+===================================== */
+
+function mensaje(texto) {
+
+    const alerta =
+        document.getElementById("alerta");
+
+
+    alerta.textContent = texto;
+
+
+    alerta.classList.add("mostrar");
+
+
+    clearTimeout(window.timerAlerta);
+
+
+    window.timerAlerta =
+        setTimeout(() => {
+
+            alerta.classList.remove(
+                "mostrar"
+            );
+
+        }, 3000);
+
+}
+
+
+/* =====================================
+   ENVIAR OPINIÓN
+===================================== */
+
+function enviarOpinion() {
+
+    const nombre =
+        document.getElementById(
+            "nombreOpinion"
+        ).value.trim();
+
+
+    const tipo =
+        document.getElementById(
+            "tipoOpinion"
+        ).value;
+
+
+    const mensajeOpinion =
+        document.getElementById(
+            "mensajeOpinion"
+        ).value.trim();
+
+
+    if (!nombre || !tipo || !mensajeOpinion) {
+
+        mensaje(
+            "Completa todos los campos."
+        );
+
+        return;
+
+    }
+
+
+    mensaje(
+        "¡Opinión enviada correctamente!"
+    );
+
+
+    document.getElementById(
+        "nombreOpinion"
+    ).value = "";
+
+
+    document.getElementById(
+        "tipoOpinion"
+    ).value = "";
+
+
+    document.getElementById(
+        "mensajeOpinion"
+    ).value = "";
+
+}
+
+
+/* =====================================
+   ENVIAR EVENTO
+===================================== */
+
+function enviarEvento() {
+
+    const nombre =
+        document.getElementById(
+            "nombreEvento"
+        ).value.trim();
+
+
+    const fecha =
+        document.getElementById(
+            "fechaEvento"
+        ).value;
+
+
+    const descripcion =
+        document.getElementById(
+            "descripcionEvento"
+        ).value.trim();
+
+
+    if (!nombre || !fecha || !descripcion) {
+
+        mensaje(
+            "Completa todos los campos."
+        );
+
+        return;
+
+    }
+
+
+    mensaje(
+        "¡Solicitud de evento enviada correctamente!"
+    );
+
+
+    document.getElementById(
+        "nombreEvento"
+    ).value = "";
+
+
+    document.getElementById(
+        "fechaEvento"
+    ).value = "";
+
+
+    document.getElementById(
+        "descripcionEvento"
+    ).value = "";
+
+}
+
+
+/* =====================================
+   INICIO
+===================================== */
+
+actualizarMenu();
+
+mostrar("inicio");
+
+</script>
+
+</body>
+</html>
